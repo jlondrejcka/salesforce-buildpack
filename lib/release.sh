@@ -114,14 +114,14 @@ if [ ! "$STAGE" == "" ]; then
       if [ "$STAGE" == "PROD" ]; then
       
         # get package version id (05i)
-        CMD="sfdx force:package2:version:list --json | jq '.result[] | select((.SubscriberPackageVersionId) == \"$SFDX_PACKAGE_VERSION_ID\")' | jq -r .Id"
+        CMD="sfdx force:package:version:list --json | jq '.result[] | select((.SubscriberPackageVersionId) == \"$SFDX_PACKAGE_VERSION_ID\")' | jq -r .Id"
         debug "CMD: $CMD"
         SFDX_PACKAGE_ID=$(eval $CMD)
         debug "SFDX_PACKAGE_ID: $SFDX_PACKAGE_ID"
       
         log "Set package version as released ..."
 
-        invokeCmd "sfdx force:package2:version:update -i \"$SFDX_PACKAGE_ID\" --noprompt --setasreleased"
+        invokeCmd "sfdx force:package:version:update -i \"$SFDX_PACKAGE_ID\" --noprompt --setasreleased"
 
       fi    
     
